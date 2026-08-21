@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DigiToxer — Reels stay locked until the revision is done</title>
+<meta name="description" content="Set the day's study targets. Distractions stay locked until you prove you did them. Built for people preparing for exams that decide years.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700&family=IBM+Plex+Sans:wght@400;500&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F2F1EC; --ink:#151A2E; --rule:#D3D2CB; --card:#FFFFFF;
+  --mute:#5D6377; --mark:#E2483C; --ok:#1F7A5C;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--paper);color:var(--ink);font-family:'IBM Plex Sans',system-ui,sans-serif;font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased}
+.wrap{max-width:900px;margin:0 auto;padding:0 22px}
+h1,h2,h3{font-family:'Archivo',system-ui,sans-serif;line-height:1.08;letter-spacing:-.025em;font-weight:700}
+h1{font-size:clamp(34px,7vw,60px)}
+h2{font-size:clamp(22px,3.6vw,30px);margin-bottom:18px}
+p{color:#333A4D}
+a{color:inherit}
+.eyebrow{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--mute)}
+section{padding:60px 0;border-top:1px solid var(--rule)}
+header{padding:32px 0 6px}
+.hero{padding:24px 0 60px;border:0}
+.lede{font-size:clamp(17px,2.3vw,20px);margin-top:20px;max-width:600px}
+
+/* signature: the running loss counter */
+.meter{margin:44px 0 6px;background:var(--card);border:1px solid var(--rule);border-radius:14px;padding:26px}
+.meter .num{font-family:'Archivo',sans-serif;font-weight:700;font-size:clamp(40px,10vw,76px);line-height:1;letter-spacing:-.04em;color:var(--mark);font-variant-numeric:tabular-nums}
+.meter .cap{font-family:'IBM Plex Mono',monospace;font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--mute);margin-top:10px}
+.meter .sub{font-size:14px;color:var(--mute);margin-top:14px;border-top:1px solid var(--rule);padding-top:14px}
+
+form{display:flex;gap:10px;flex-wrap:wrap;margin-top:32px}
+input[type=email]{flex:1;min-width:230px;background:var(--card);border:1px solid var(--ink);color:var(--ink);padding:14px 16px;border-radius:8px;font:inherit;font-size:15px}
+input[type=email]:focus,button:focus-visible,a:focus-visible,summary:focus-visible{outline:2px solid var(--mark);outline-offset:2px}
+button{background:var(--ink);color:var(--paper);border:0;padding:14px 26px;border-radius:8px;font:inherit;font-weight:600;font-size:15px;cursor:pointer}
+.fineprint{font-size:12.5px;color:var(--mute);margin-top:12px}
+
+.cards{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
+.card{background:var(--card);border:1px solid var(--rule);border-radius:12px;padding:22px}
+.card h3{font-size:16px;margin-bottom:8px}
+.card p{font-size:14px;color:var(--mute)}
+
+ol.steps{list-style:none;counter-reset:s}
+ol.steps li{counter-increment:s;padding:17px 0 17px 50px;position:relative;border-bottom:1px solid var(--rule)}
+ol.steps li:last-child{border-bottom:0}
+ol.steps li::before{content:counter(s,decimal-leading-zero);position:absolute;left:0;top:18px;font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--mark)}
+ol.steps b{font-family:'Archivo',sans-serif}
+ol.steps p{font-size:14px;color:var(--mute);margin-top:3px}
+
+.ladder{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+.rung{font-family:'IBM Plex Mono',monospace;font-size:11.5px;border:1px solid var(--rule);background:var(--card);border-radius:999px;padding:7px 13px;color:var(--mute)}
+.rung.on{border-color:var(--ok);color:var(--ok)}
+
+table{width:100%;border-collapse:collapse;font-size:14px}
+td,th{padding:12px 8px;text-align:left;border-bottom:1px solid var(--rule);vertical-align:top}
+th{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--mute);font-weight:500}
+
+.price{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
+.price .card b{font-family:'Archivo',sans-serif;font-size:26px;display:block;margin-bottom:4px}
+details{border-bottom:1px solid var(--rule);padding:15px 0}
+summary{cursor:pointer;font-weight:500;font-size:15px}
+details p{font-size:14px;color:var(--mute);margin-top:9px}
+footer{padding:38px 0 60px;color:var(--mute);font-size:13px;border-top:1px solid var(--rule)}
+</style>
+</head>
+<body>
+
+<header class="wrap"><div class="eyebrow">DigiToxer</div></header>
+
+<section class="hero wrap">
+  <h1>Reels stay locked<br>until the revision is done.</h1>
+  <p class="lede">You don't have a syllabus problem. You have a forty-minute problem, eight times a day. Set the day's targets, prove you hit them, and the apps come back. Not before.</p>
+
+  <div class="meter">
+    <div class="num" id="n">1,095</div>
+    <div class="cap">hours a year, at three hours a day</div>
+    <div class="sub">That's 45 full days. One full attempt at the exam, spent scrolling. The maths doesn't care how motivated you felt.</div>
+  </div>
+
+  <form name="waitlist" method="POST" data-netlify="true" netlify-honeypot="company">
+    <input type="hidden" name="form-name" value="waitlist">
+    <input type="hidden" name="variant" value="aspirant">
+    <p hidden><label>Leave blank <input name="company"></label></p>
+    <input type="email" name="email" placeholder="you@email.com" aria-label="Email address" required>
+    <button type="submit">Join the early list</button>
+  </form>
+  <p class="fineprint">Android first. Free tier at launch. One email when it opens.</p>
+</section>
+
+<section class="wrap">
+  <div class="eyebrow">The problem with focus apps</div>
+  <h2>Timers end. Willpower ends earlier.</h2>
+  <div class="cards">
+    <div class="card"><h3>You hold the off switch</h3><p>Every blocker gives you the password. Ten seconds of weakness beats a week of intent.</p></div>
+    <div class="card"><h3>Waiting isn't studying</h3><p>A cooldown gives the app back for free. You've proved nothing and learned nothing.</p></div>
+    <div class="card"><h3>Nobody's watching</h3><p>Alone in a room with your phone is the hardest version of this. It doesn't have to be the only version.</p></div>
+  </div>
+</section>
+
+<section class="wrap">
+  <div class="eyebrow">How it works</div>
+  <h2>Earn the scroll.</h2>
+  <ol class="steps">
+    <li><b>Set the day's targets</b><p>Study blocks, revision, practice papers, mock tests. Preloaded sets for UPSC, JEE, NEET, CAT, GATE, GRE, MCAT, CFA and Gaokao — or write your own.</p></li>
+    <li><b>Lock what pulls you away</b><p>Reels, Shorts and TikTok specifically — not all of YouTube, because you still need the lectures.</p></li>
+    <li><b>Prove the block happened</b><p>A timed session, a photo of the answer sheet, a page count. The proof stays on your phone.</p></li>
+    <li><b>Add a study partner, if you want one</b><p>Pair with a friend preparing for the same exam. You hold each other's key, and you both see the streak.</p></li>
+  </ol>
+</section>
+
+<section class="wrap">
+  <div class="eyebrow">Progress</div>
+  <h2>Ten rungs, named after the thing you're actually climbing.</h2>
+  <div class="ladder">
+    <span class="rung on">01 Foundation</span><span class="rung on">02 Consistency</span><span class="rung on">03 Full syllabus</span>
+    <span class="rung">04 Revision I</span><span class="rung">05 Mocks</span><span class="rung">06 Prelims</span>
+    <span class="rung">07 Revision II</span><span class="rung">08 Mains</span><span class="rung">09 Interview</span><span class="rung">10 Rank</span>
+  </div>
+  <p style="font-size:14px;color:var(--mute);margin-top:18px">Rungs come from your exam, not from a generic points system. Miss a day and you drop one — not back to zero, because that's how people quit.</p>
+</section>
+
+<section class="wrap">
+  <div class="eyebrow">Honest comparison</div>
+  <h2>Where this sits.</h2>
+  <table>
+    <tr><th>Approach</th><th>Way back in</th><th>What it misses</th></tr>
+    <tr><td>Pomodoro and timer apps</td><td>The clock runs out</td><td>Nothing was required of you</td></tr>
+    <tr><td>Strict blockers</td><td>Password or long delay</td><td>You still hold the password</td></tr>
+    <tr><td>Study-with-me streams</td><td>Social pressure only</td><td>Your phone is still unlocked</td></tr>
+    <tr><td><b>DigiToxer</b></td><td>Complete a target and prove it</td><td>Android first. iOS is not here yet.</td></tr>
+  </table>
+</section>
+
+<section class="wrap">
+  <div class="eyebrow">Pricing</div>
+  <h2>Free tier that actually works.</h2>
+  <div class="price">
+    <div class="card"><b>Free</b><p>Two daily targets, three locked apps, timer verification, streak. Permanent, not a trial.</p></div>
+    <div class="card"><b>₹899<span style="font-size:14px;color:var(--mute)">/year</span></b><p>Unlimited targets, all verification types, study partner, exam presets, full history.</p></div>
+    <div class="card"><b>Priced locally</b><p>Set per region, so it's affordable where you are — not a dollar price converted.</p></div>
+  </div>
+</section>
+
+<section class="wrap">
+  <div class="eyebrow">Straight answers</div>
+  <h2>Questions worth asking first.</h2>
+  <details><summary>Will it block YouTube? I need lectures.</summary><p>Shorts get blocked, the rest of YouTube keeps working. Same for Instagram: Reels go, direct messages can stay if you want them.</p></details>
+  <details><summary>What if there's a real emergency?</summary><p>Calls, messages, maps, payments and your camera are never blocked. There's also an emergency override that works instantly — it just breaks the streak and, if you have a partner, tells them.</p></details>
+  <details><summary>Can I not just uninstall it?</summary><p>Yes, and we won't pretend otherwise — Google Play doesn't allow adult apps to prevent their own removal. What we do is make removal cost the streak, and tell your study partner. If you have no partner, the honest answer is that this app works on commitment, not force.</p></details>
+  <details><summary>Does my photo go to a server?</summary><p>Verification stays on your device wherever it can. Anything that needs checking is processed and discarded — no library of your desk is kept.</p></details>
+  <details><summary>I'm not preparing for an exam.</summary><p>It works the same for a thesis, a portfolio, a certification or a job hunt. The presets are a shortcut, not a requirement.</p></details>
+</section>
+
+<footer class="wrap">DigiToxer · built by one person, in Nagpur, for anyone · <a href="mailto:hello@digitoxerai.app">hello@digitoxerai.app</a></footer>
+
+<script>
+// counts up once on load; respects reduced-motion
+(function(){
+  var el=document.getElementById('n'), target=1095;
+  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){el.textContent=target.toLocaleString();return;}
+  var start=null;
+  function step(t){
+    if(!start)start=t;
+    var p=Math.min((t-start)/1100,1), v=Math.round(target*(1-Math.pow(1-p,3)));
+    el.textContent=v.toLocaleString();
+    if(p<1)requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
+})();
+</script>
+</body>
+</html>

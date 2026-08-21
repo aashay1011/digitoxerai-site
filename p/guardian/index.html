@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DigiToxer — screen time your child earns, not begs for</title>
+<meta name="description" content="Screen time your child earns by doing real things. Set what counts, and the apps unlock when it's done. No nightly argument.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700&family=IBM+Plex+Sans:wght@400;500&family=IBM+Plex+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ground:#1A1426; --raise:#241C34; --edge:#3C3153;
+  --text:#EDE8F5; --mute:#A198BC; --mint:#6FE3B8; --warn:#F2B872;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--ground);color:var(--text);font-family:'IBM Plex Sans',system-ui,sans-serif;font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased}
+.wrap{max-width:900px;margin:0 auto;padding:0 22px}
+h1,h2,h3{font-family:'Manrope',system-ui,sans-serif;font-weight:700;line-height:1.12;letter-spacing:-.025em}
+h1{font-size:clamp(32px,6.2vw,54px)}
+h2{font-size:clamp(22px,3.6vw,30px);margin-bottom:18px}
+p{color:#D6D0E4}
+a{color:inherit}
+.eyebrow{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--mute)}
+section{padding:60px 0;border-top:1px solid var(--edge)}
+header{padding:32px 0 6px}
+.hero{padding:24px 0 60px;border:0}
+.lede{font-size:clamp(17px,2.3vw,20px);margin-top:20px;max-width:600px}
+
+/* signature: the exchange — chore in, minutes out */
+.exchange{margin:44px 0 6px;display:grid;gap:12px;grid-template-columns:1fr auto 1fr;align-items:stretch}
+.side{background:var(--raise);border:1px solid var(--edge);border-radius:14px;padding:20px}
+.side .eyebrow{margin-bottom:10px}
+.side ul{list-style:none}
+.side li{font-size:14px;color:var(--mute);padding:5px 0 5px 18px;position:relative}
+.side li::before{content:"";position:absolute;left:0;top:13px;width:6px;height:6px;border-radius:50%;background:var(--mint)}
+.arrow{display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;color:var(--mint);font-size:20px}
+
+form{display:flex;gap:10px;flex-wrap:wrap;margin-top:32px}
+input[type=email]{flex:1;min-width:230px;background:var(--raise);border:1px solid var(--edge);color:var(--text);padding:14px 16px;border-radius:9px;font:inherit;font-size:15px}
+input[type=email]:focus,button:focus-visible,a:focus-visible,summary:focus-visible{outline:2px solid var(--mint);outline-offset:2px}
+button{background:var(--mint);color:#10231C;border:0;padding:14px 26px;border-radius:9px;font:inherit;font-weight:700;font-size:15px;cursor:pointer}
+.fineprint{font-size:12.5px;color:var(--mute);margin-top:12px}
+
+.cards{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
+.card{background:var(--raise);border:1px solid var(--edge);border-radius:12px;padding:22px}
+.card h3{font-size:16px;margin-bottom:8px}
+.card p{font-size:14px;color:var(--mute)}
+
+ol.steps{list-style:none;counter-reset:s}
+ol.steps li{counter-increment:s;padding:17px 0 17px 50px;position:relative;border-bottom:1px solid var(--edge)}
+ol.steps li:last-child{border-bottom:0}
+ol.steps li::before{content:counter(s,decimal-leading-zero);position:absolute;left:0;top:18px;font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--mint)}
+ol.steps b{font-family:'Manrope',sans-serif}
+ol.steps p{font-size:14px;color:var(--mute);margin-top:3px}
+
+.trust{background:var(--raise);border:1px solid var(--mint);border-radius:14px;padding:26px}
+.trust ul{list-style:none;margin-top:12px}
+.trust li{font-size:14px;padding:7px 0 7px 22px;position:relative;color:#D6D0E4}
+.trust li::before{content:"";position:absolute;left:0;top:15px;width:8px;height:8px;border-radius:50%;background:var(--mint)}
+
+table{width:100%;border-collapse:collapse;font-size:14px}
+td,th{padding:12px 8px;text-align:left;border-bottom:1px solid var(--edge);vertical-align:top}
+th{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--mute);font-weight:400}
+
+.price{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
+.price .card b{font-family:'Manrope',sans-serif;font-size:26px;display:block;margin-bottom:4px}
+details{border-bottom:1px solid var(--edge);padding:15px 0}
+summary{cursor:pointer;font-weight:500;font-size:15px}
+details p{font-size:14px;color:var(--mute);margin-top:9px}
+footer{padding:38px 0 60px;color:var(--mute);font-size:13px;border-top:1px solid var(--edge)}
+@media(max-width:620px){.exchange{grid-template-columns:1fr}.arrow{transform:rotate(90deg);padding:4px 0}}
+</style>
+</head>
+<body>
+
+<header class="wrap"><div class="eyebrow">DigiToxer</div></header>
+
+<section class="hero wrap">
+  <h1>Screen time they earn,<br>not screen time they beg for.</h1>
+  <p class="lede">Time limits make you the villain every evening. This changes who says no: the phone stays locked until the agreed thing is done, and then it opens by itself. You stop being the timer.</p>
+
+  <div class="exchange">
+    <div class="side">
+      <div class="eyebrow">What they do</div>
+      <ul><li>Homework, photographed</li><li>Thirty minutes outside</li><li>A chore, done and shown</li><li>Reading, timed</li></ul>
+    </div>
+    <div class="arrow">&rarr;</div>
+    <div class="side">
+      <div class="eyebrow">What opens</div>
+      <ul><li>The games</li><li>The social apps</li><li>The videos</li><li>On a schedule you both agreed</li></ul>
+    </div>
+  </div>
+
+  <form name="waitlist" method="POST" data-netlify="true" netlify-honeypot="company">
+    <input type="hidden" name="form-name" value="waitlist">
+    <input type="hidden" name="variant" value="guardian">
+    <p hidden><label>Leave blank <input name="company"></label></p>
+    <input type="email" name="email" placeholder="you@email.com" aria-label="Email address" required>
+    <button type="submit">Get early access</button>
+  </form>
+  <p class="fineprint">Android. Free tier at launch. One email when it's ready.</p>
+</section>
+
+<section class="wrap">
+  <div class="eyebrow">Why limits stop working</div>
+  <h2>A timer that ends is an argument that starts.</h2>
+  <div class="cards">
+    <div class="card"><h3>The clock is the enemy</h3><p>Time-based limits give nothing back for effort. Finishing homework early earns exactly the same as doing nothing.</p></div>
+    <div class="card"><h3>You become enforcement</h3><p>Every extension is a negotiation with you. The tool should carry that, not the parent.</p></div>
+    <div class="card"><h3>They out-engineer you</h3><p>Guest accounts, second browsers, reinstalls. Most tools are one search away from being defeated.</p></div>
+  </div>
+</section>
+
+<section class="wrap">
+  <div class="eyebrow">How it works</div>
+  <h2>Set the exchange rate once.</h2>
+  <ol class="steps">
+    <li><b>Agree what counts</b><p>Homework, reading, chores, time outdoors, a walk. Set it together — agreement is what makes it survive week two.</p></li>
+    <li><b>Lock what's being earned</b><p>Games, social, video. Calls, messages, maps and the camera are never locked.</p></li>
+    <li><b>They prove it, the phone opens</b><p>A photo, a timer, step count. Verification is automatic, so you're not the referee at 9pm.</p></li>
+    <li><b>You see progress, not their private life</b><p>What was completed and what's unlocked. Not their chats, not their photos, not their browsing.</p></li>
+  </ol>
+</section>
+
+<section class="wrap">
+  <div class="trust">
+    <div class="eyebrow">A line we don't cross</div>
+    <h2 style="margin-top:8px">Not a monitoring app.</h2>
+    <ul>
+      <li>No message reading, no call logs, no browsing history, no location tracking.</li>
+      <li>Your child sees exactly what you see. Nothing is hidden from them.</li>
+      <li>Older teens can be given a mutual setup instead — you each hold a key, both sides locked.</li>
+      <li>Surveillance breaks trust and stops working the day they find it. Earned access keeps working because they agreed to it.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="wrap">
+  <div class="eyebrow">Honest comparison</div>
+  <h2>Where this sits.</h2>
+  <table>
+    <tr><th>Approach</th><th>How access is granted</th><th>What it misses</th></tr>
+    <tr><td>Built-in family controls</td><td>Daily time budget</td><td>Free and fine — but effort earns nothing</td></tr>
+    <tr><td>Monitoring suites</td><td>Parent watches and intervenes</td><td>Costs trust; teens work around it</td></tr>
+    <tr><td>Plain app blockers</td><td>Schedule or password</td><td>Someone still has to say no out loud</td></tr>
+    <tr><td><b>DigiToxer</b></td><td>Completed, verified real-world action</td><td>Android. Needs both people to agree the deal.</td></tr>
+  </table>
+</section>
+
+<section class="wrap">
+  <div class="eyebrow">Pricing</div>
+  <h2>Free tier that actually works.</h2>
+  <div class="price">
+    <div class="card"><b>Free</b><p>One child, three tasks, core locking. Permanent, not a trial.</p></div>
+    <div class="card"><b>₹999<span style="font-size:14px;color:var(--mute)">/year</span></b><p>Multiple children, all task types, schedules, history.</p></div>
+    <div class="card"><b>Priced locally</b><p>Set per region, so it costs a fair amount wherever you are.</p></div>
+  </div>
+</section>
+
+<section class="wrap">
+  <div class="eyebrow">Straight answers</div>
+  <h2>Questions worth asking first.</h2>
+  <details><summary>Can my child just uninstall it?</summary><p>In the parent setup, no — removal needs your approval. That protection exists specifically for parent-and-child use and nothing else.</p></details>
+  <details><summary>What about emergencies?</summary><p>Calls, messages, maps and the camera are never blocked, in any configuration.</p></details>
+  <details><summary>My teen will hate this.</summary><p>Probably, if it's imposed. It's built to be agreed to — they set some of the tasks, they see the same screen you do, and nothing about them is hidden from them. If they won't agree to anything, a tool won't fix that.</p></details>
+  <details><summary>How is this different from the free option on the phone?</summary><p>Built-in controls hand out time. This hands out time in exchange for something done. If a time budget is working for your family, keep it — you don't need this.</p></details>
+  <details><summary>Where's my data?</summary><p>Task verification stays on the device wherever possible. We don't collect message content, location or browsing, so there's nothing of that kind to leak.</p></details>
+</section>
+
+<footer class="wrap">DigiToxer · built by one person · <a href="mailto:hello@digitoxerai.app">hello@digitoxerai.app</a></footer>
+
+</body>
+</html>
