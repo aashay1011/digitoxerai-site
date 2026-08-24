@@ -3,8 +3,8 @@
 # variant. 200 = rewrite, so the URL bar still shows the bare domain.
 # Only ONE of these may be uncommented at a time.
 
-/    /p/ally/index.html       200
-# /  /p/aspirant/index.html   200
+# /    /p/ally/index.html       200
+/  /p/aspirant/index.html   200
 # /  /p/guardian/index.html   200
 
 # Each variant also stays reachable at its own address, always:
