@@ -95,7 +95,29 @@ footer{padding:40px 0 60px;color:var(--mute);font-size:13px;border-top:1px solid
       <div class="state">status · live</div>
     </div>
   </div>
+  <div style="margin:26px 0;padding:22px;border:1px solid var(--edge);border-radius:10px">
+    <label for="h" style="display:block;margin-bottom:12px;color:var(--mute);font-size:14px">Hours a day you'd rather not add up</label>
+    <input id="h" type="range" min="0.5" max="6" step="0.5" value="2"
+           style="width:100%;max-width:360px;accent-color:var(--brass);cursor:pointer">
+    <div id="n" style="font-size:44px;font-weight:700;color:var(--brass);line-height:1.1;margin-top:14px">730</div>
+    <div style="color:var(--mute);font-size:14px">hours a year, at <span id="hh">2</span> hours a day</div>
+    <div id="s" style="margin-top:10px;font-size:15px;line-height:1.6"></div>
+  </div>
 
+<script>
+(function(){
+  var h=document.getElementById('h'),n=document.getElementById('n'),
+      hh=document.getElementById('hh'),s=document.getElementById('s');
+  function u(){
+    var v=parseFloat(h.value), yr=Math.round(v*365), d=Math.round(yr/24);
+    n.textContent=yr.toLocaleString('en-US');
+    hh.textContent=v;
+    s.textContent="That's "+d+" full days a year — and not one of them was witnessed. "
+      +"Private is the reason it kept going.";
+  }
+  h.addEventListener('input',u); u();
+})();
+</script>
   <form name="waitlist" method="POST" data-netlify="true" netlify-honeypot="company">
     <input type="hidden" name="form-name" value="waitlist">
     <input type="hidden" name="variant" value="ally">
