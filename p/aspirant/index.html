@@ -75,11 +75,29 @@ footer{padding:38px 0 60px;color:var(--mute);font-size:13px;border-top:1px solid
   <h1>Reels stay locked<br>until the revision is done.</h1>
   <p class="lede">You don't have a syllabus problem. You have a forty-minute problem, eight times a day. Set the day's targets, prove you hit them, and the apps come back. Not before.</p>
 
-  <div class="meter">
+    <div class="meter">
+    <label for="h" class="cap" style="display:block;margin-bottom:12px">Hours a day on Reels, Shorts and TikTok</label>
+    <input id="h" type="range" min="1" max="8" step="0.5" value="3"
+           style="width:100%;max-width:360px;accent-color:var(--mark);cursor:pointer">
     <div class="num" id="n">1,095</div>
-    <div class="cap">hours a year, at three hours a day</div>
-    <div class="sub">That's 45 full days. One full attempt at the exam, spent scrolling. The maths doesn't care how motivated you felt.</div>
+    <div class="cap">hours a year, at <span id="hh">3</span> hours a day</div>
+    <div class="sub" id="s"></div>
   </div>
+
+<script>
+(function(){
+  var h=document.getElementById('h'),n=document.getElementById('n'),
+      hh=document.getElementById('hh'),s=document.getElementById('s');
+  function u(){
+    var v=parseFloat(h.value), yr=Math.round(v*365), d=Math.round(yr/24);
+    n.textContent=yr.toLocaleString('en-IN');
+    hh.textContent=v;
+    s.textContent="That's "+d+" full days. A whole attempt at the exam, spent scrolling. "
+      +"The maths doesn't care how motivated you felt.";
+  }
+  h.addEventListener('input',u); u();
+})();
+</script>
 
   <form name="waitlist" method="POST" data-netlify="true" netlify-honeypot="company">
     <input type="hidden" name="form-name" value="waitlist">
